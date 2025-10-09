@@ -11,6 +11,21 @@ export let iniciarServidor = () => {
         res.send("hola").end()
     })
 
+    app.get("/datos", (req, res) => {
+
+        let arrDatos = [
+            ['Año', 'Ventas', 'Gastos'],
+            ['2004',  8600,  6400],
+            ['2005',  1170,   460],
+            ['2006',   660,  1120],
+            ['2007',  1030, 20000]
+        ]
+
+        let objDatos = {arrDatos:arrDatos}
+
+        res.send(JSON.stringify(objDatos)).end();
+    });
+
     app.listen(3000, () => {
         console.log('escuchando puerto 3000')
     })
