@@ -5,15 +5,16 @@ document.addEventListener('DOMContentLoaded', () => {
     return await new Promise((next) => { setTimeout(next, 1000)  })
   }
 
+  let traerLosDatosDeVentas = async () => {
+        let paso1 = await fetch('/datos')
+        let paso2 = await paso1.json()
+        console.log(paso2)
+        return paso2.arrDatos
+    }
+
   document.getElementById('btnArrancar').addEventListener('click', async () => { 
      await tiempo()
-     dibujarConApiGoogleChart([
-          ['Year', 'Sales', 'Expenses'],
-          ['2004',  8600,      6400],
-          ['2005',  1170,      460],
-          ['2006',  660,       1120],
-          ['2007',  1030,      20000]
-        ])
+     dibujarConApiGoogleChart(await traerLosDatosDeVentas())
   })
 
   let dibujarConApiGoogleChart = (dataArray) => {
