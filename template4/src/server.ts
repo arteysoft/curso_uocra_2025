@@ -1,4 +1,5 @@
 import express from 'express'
+import fs from 'fs/promises'
 const path = require('path');
 
 export let iniciarServidor = () => {
@@ -11,16 +12,20 @@ export let iniciarServidor = () => {
         res.send("hola").end()
     })
 
-    app.get("/datos", (req, res) => {
+    app.get("/datos", async (req, res) => {
 
         let arrDatos = [
-            ['Año', 'Ventas', 'Gastos'],
-            ['2004',  8600,  6400],
-            ['2005',  1170,   460],
-            ['2006',   660,  1120],
-            ['2007',  1030, 20000]
+            ['Fecha', 'Cotizacion'],
+            ['2004',  8600],
         ]
 
+        const rutaArchivo = path.join(__dirname, '../../datos_mercado_libre.txt');
+        let data = await fs.readFile(rutaArchivo, 'utf8')
+        
+        const lineas = data.trim().split('\r\n');
+        for (let linea of lineas.map(linea => linea.split('\t'))) {
+            arrDatos.push(linea)
+        }
         let objDatos = {arrDatos:arrDatos}
 
         res.send(JSON.stringify(objDatos)).end();
