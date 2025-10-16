@@ -14,9 +14,8 @@ export let iniciarServidor = () => {
 
     app.get("/datos", async (req, res) => {
 
-        let arrDatos = [
-            ['Fecha', 'Cotizacion'],
-            ['2004',  8600],
+        let arrDatos:Array<any> = [
+            ['Fecha', 'Cotizacion']
         ]
 
         const rutaArchivo = path.join(__dirname, '../../datos_mercado_libre.txt');
@@ -24,7 +23,7 @@ export let iniciarServidor = () => {
         
         const lineas = data.trim().split('\r\n');
         for (let linea of lineas.map(linea => linea.split('\t'))) {
-            arrDatos.push(linea)
+            arrDatos.push([linea[0], parseInt(linea[1])])
         }
         let objDatos = {arrDatos:arrDatos}
 
