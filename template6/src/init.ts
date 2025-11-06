@@ -1,5 +1,5 @@
 import mysql2 from 'mysql2/promise'
-import uuid from 'uuid'
+let uuid = require('uuid') 
 
 type TipoVehiculo = 'Moto' | 'Auto' | 'Pesado';
 type Clima = 'SECO' | 'LLUVIOSO' | 'NIEVE';
@@ -116,10 +116,10 @@ let jump = async () => {
     procesarLectura(registroSensor);
 
     await connection.query("insert into transito (id, patente, tipo_vehiculo, fecha_registro, velocidad_medida) values (?, ?, ?, ?, ?)", 
-            [uuid.v4, registroSensor.patente, registroSensor.tipo, new Date(), registroSensor.velocidad])
+            [uuid.v4(), registroSensor.patente, registroSensor.tipo, new Date(), registroSensor.velocidad])
   })
   
-  connection.end()
+  // connection.end()
 } 
 
 jump()
