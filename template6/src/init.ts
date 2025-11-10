@@ -19,7 +19,7 @@ let climaActual: Clima = 'SECO';
 let tiempoUltimoCambioClima = 0; // en segundos
 
 let crearNumeroRandom = (minimo: number, maximo: number, funcionGeneradora:FuncionGeneradoraNumero) => {
-    return Math.floor(funcionGeneradora() * (maximo - minimo + 1)) + minimo  // 91 * [0.00001 - 0.9999999]
+    return Math.floor(funcionGeneradora() * (maximo - minimo)) + minimo  // 91 * [0.00001 - 0.9999999]
 }
 
 // --- Función para generar una lectura del sensor ---
@@ -122,4 +122,13 @@ let jump = async () => {
   // connection.end()
 } 
 
-jump()
+// jump()
+
+let arrCount = [0, 0, 0, 0, 0]
+for (;;) {
+  let sub = crearNumeroRandom(0, 3, () => Math.random())
+  arrCount[sub]++
+  console.log(arrCount)
+}
+
+
